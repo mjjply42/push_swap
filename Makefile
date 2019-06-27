@@ -25,9 +25,14 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC_C = main.c
+MAIN = main.c
 
-OBJ = $(SRC_C:.c=.o)
+SRC_C = init.c
+
+SRC = $(addprefix src/, $(SRC_C))
+
+OBJ = $(SRC_C:.c=.o)\
+	  $(MAIN:.c=.o)
 
 LIBFT = libft/libft.a
 LIBFTH = libft/libft.h
@@ -39,8 +44,8 @@ all: $(NAME) $(NAME1)
 $(LIBFT):
 	@make -C libft
 
-$(OBJ): $(SRC_C)
-	@gcc $(CFLAGS) -c $(SRC_C)
+$(OBJ): $(MAIN)
+	@gcc $(CFLAGS) -c $(MAIN) $(SRC)
 
 ##Compiles Push_Swap executable and all dependencies
 $(NAME): $(LIBFT) $(OBJ)

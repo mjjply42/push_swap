@@ -1,6 +1,8 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+#include "libft/libft.h"
+#include "libft/printf/ft_printf.h"
 /////////////////////////////////////////////
 /////*Structs for Stack and Stack Nodes*/////
 /////////////////////////////////////////////
@@ -21,6 +23,6 @@ struct  s_stack
 
 struct s_stack *initStack();
 struct s_node *initNode(int value);
-int *initList(int *num_list);
+int *initList(char **list, int length);
 
 #endif
