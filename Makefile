@@ -62,9 +62,15 @@ $(NAME1):
 clean:
 	@/bin/rm -rf $(OBJ)
 
+pclean:
+	@/bin/rm -f push_swap
+	@/bin/rm -f checker
+
 fclean: clean
 	@make fclean -C libft/
 	@/bin/rm -f push_swap
 	@/bin/rm -f checker
 
 re: fclean all
+
+pre: pclean all

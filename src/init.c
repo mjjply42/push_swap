@@ -21,14 +21,14 @@ struct s_stack *initStack()
     if(NULL == (stack = malloc(sizeof(struct s_stack))))
         return NULL;
     stack->capacity = 0;
-    stack->max = 0;
-    stack->min = 0;
+    stack->max_a = 0;
+    stack->max_b = 0;
     stack->stack = NULL;
     return stack;
 }
 
 /*Initializes a list of all the integers passed from ARGV(list). Returns the list*/
-int  *initList(char **list, int length)
+int  *initArray(char **list, int length)
 {
     int i;
     int number;
