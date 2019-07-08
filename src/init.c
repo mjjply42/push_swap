@@ -47,3 +47,20 @@ int  *initArray(char **list, int length)
     num_list[length] = '\0';
     return num_list; 
 }
+
+struct  s_node  *initList(struct s_node *head, struct s_node *node)
+{
+    struct s_node *tmp;
+
+    tmp = NULL;
+    if(head == NULL)
+        head = node;
+    else
+    {
+        tmp = head;
+        while(tmp->next != NULL)
+            tmp = tmp->next;
+        tmp->next = node;
+    }
+    return head;
+}

@@ -27,7 +27,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 MAIN = main.c
 
-SRC_C = init.c
+SRC_C = init.c \
+		helpers.c \
 
 SRC = $(addprefix src/, $(SRC_C))
 
