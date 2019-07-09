@@ -1,6 +1,6 @@
 #include "../push_swap.h"
 
-void SA(struct s_stack **B)
+void    SB(struct s_stack **B)
 {
     struct s_stack **b;
     struct s_node *tmp;
@@ -18,4 +18,54 @@ void SA(struct s_stack **B)
         tmp->prev = NULL;
         (*b)->stack = tmp;
     }
+}
+
+void    PB(struct s_stack **A, struct s_stack **B)
+{
+    struct s_node *node;
+    
+    node = NULL;
+    if((*A)->capacity == 0)
+        return ;
+    node = pop(A);
+    (*A)->capacity--;
+    push(B, node);
+    (*B)->capacity++;
+}
+
+void    RB(struct s_stack **B)
+{
+    struct s_node *tmp;
+    struct s_node *curr;
+    
+    tmp = (*B)->stack;
+    curr = tmp;
+    while(tmp->next)
+        tmp = tmp->next;
+    tmp->next = curr;
+    curr->prev = tmp;
+    curr = curr->next;
+    (*B)->stack->next = NULL;
+    (*B)->stack = curr;
+}
+
+void    RRB(struct s_stack **B)
+{
+
+    struct s_node *tmp;
+    struct s_node *curr;
+
+    tmp = (*B)->stack;
+    curr = tmp;
+    if(tmp->next)
+    tmp = tmp->next;
+    while(tmp->next)
+    {
+        curr = tmp;
+        tmp = tmp->next;
+    }
+    tmp->prev = NULL;
+    curr->next = NULL;
+    tmp->next = (*B)->stack;
+    (*B)->stack = tmp;
 }
