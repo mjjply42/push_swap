@@ -29,6 +29,7 @@ MAIN = main.c
 
 SRC_C = init.c \
 		helpers.c \
+		a_operations.c \
 
 SRC = $(addprefix src/, $(SRC_C))
 
@@ -63,7 +64,7 @@ $(NAME1):
 clean:
 	@/bin/rm -rf $(OBJ)
 
-pclean:
+pclean: clean
 	@/bin/rm -f push_swap
 	@/bin/rm -f checker
 
