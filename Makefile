@@ -30,6 +30,7 @@ MAIN = main.c
 SRC_C = init.c \
 		helpers.c \
 		a_operations.c \
+		print_stack.c \
 
 SRC = $(addprefix src/, $(SRC_C))
 

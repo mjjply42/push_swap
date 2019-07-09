@@ -26,11 +26,12 @@ struct      s_stack
 struct      s_stack *initStack();
 struct      s_node *initNode(int value);
 struct      s_node  *initList(struct s_node *node, struct s_node *head);
-struct      s_stack *toStack(int value, struct s_stack *A);
-void        set_start(struct s_stack *A, struct s_stack *B, int *num_arr, int size);
-void        SA(struct s_stack *A);
-void        SB(struct s_stack *B);
+void        toStack(int value, struct s_stack **A);
+void        set_start(struct s_stack **A, struct s_stack **B, int *num_arr, int size);
+void        SA(struct s_stack **A);
+void        SB(struct s_stack **B);
 void        swap(int *a, int *b);
+void        print_stack(struct s_stack **Stack);
 int         *initArray(char **list, int length);
 int         *initArray(char **list, int length);
 int         checkMax(int content, int *big);
