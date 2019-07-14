@@ -33,6 +33,8 @@ SRC_C = init.c \
 		b_operations.c \
 		print.c \
 		standard.c \
+		push_swap.c \
+		extra.c \
 
 SRC = $(addprefix src/, $(SRC_C))
 

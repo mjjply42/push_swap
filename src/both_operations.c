@@ -1,19 +1,22 @@
 #include "../push_swap.h"
 
-void        SS(struct s_stack **A, struct s_stack **B)
+void    SS(struct s_stack **A, struct s_stack **B)
 {
     SA(A);
-    SB(B);
+    SB(A,B);
+    add_command(A,"ss");
 }
 
-void        RR(struct s_stack **A, struct s_stack **B)
+void    RR(struct s_stack **A, struct s_stack **B)
 {
     RA(A);
-    RB(B);
+    RB(A,B);
+    add_command(A,"rr");
 }
 
-void        RRR(struct s_stack **A, struct s_stack **B)
+void    RRR(struct s_stack **A, struct s_stack **B)
 {
     RRA(A);
-    RRB(B);
+    RRB(A,B);
+    add_command(A,"rrr");
 }

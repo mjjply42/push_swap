@@ -1,6 +1,6 @@
 #include "../push_swap.h"
 
-void SA(struct s_stack **A)
+void    SA(struct s_stack **A)
 {
     struct s_stack **a;
     struct s_node *tmp;
@@ -18,6 +18,7 @@ void SA(struct s_stack **A)
         tmp->prev = NULL;
         (*a)->stack = tmp;
     }
+    add_command(A, "sa");
 }
 
 void    PA(struct s_stack **B, struct s_stack **A)
@@ -31,6 +32,7 @@ void    PA(struct s_stack **B, struct s_stack **A)
     (*B)->capacity--;
     push(A, node);
     (*A)->capacity++;
+    add_command(A,"pa");
 }
 
 void    RA(struct s_stack **A)
@@ -47,6 +49,7 @@ void    RA(struct s_stack **A)
     curr = curr->next;
     (*A)->stack->next = NULL;
     (*A)->stack = curr;
+    add_command(A,"ra");
 }
 
 void    RRA(struct s_stack **A)
@@ -68,4 +71,5 @@ void    RRA(struct s_stack **A)
     curr->next = NULL;
     tmp->next = (*A)->stack;
     (*A)->stack = tmp;
+    add_command(A,"rra");
 }

@@ -22,8 +22,11 @@ struct s_stack *initStack()
         return NULL;
     stack->capacity = 0;
     stack->max_a = 0;
-    stack->max_b = 0;
+    stack->end = 0;
+    stack->pivot = NULL;
+    stack->list = NULL;
     stack->stack = NULL;
+    stack->tail = NULL;
     return stack;
 }
 
@@ -48,19 +51,36 @@ int  *initArray(char **list, int length)
     return num_list; 
 }
 
-struct  s_node  *initList(struct s_node *head, struct s_node *node)
+struct t_list   *initCommNode(char *str)
 {
-    struct s_node *tmp;
+    struct t_list *node;
 
-    tmp = NULL;
-    if(head == NULL)
-        head = node;
+    if(NULL ==(node = malloc(sizeof(struct t_list))))
+        return NULL;
     else
     {
-        tmp = head;
-        while(tmp->next != NULL)
+        node->command = ft_strdup(str);
+        node->next = NULL;
+    }
+    return node;
+}
+
+void        initList(struct t_list **list, char *str)
+{
+    struct t_list *tmp;
+    struct t_list *node;
+
+    node = initCommNode(str);
+    if(*list == NULL)
+    {
+        *list = node;
+        node->next = NULL;
+    }
+    else
+    {
+        tmp = *list;
+        while(tmp->next)
             tmp = tmp->next;
         tmp->next = node;
     }
-    return head;
 }

@@ -1,5 +1,47 @@
 #include "push_swap.h"
 
+void    setCue(struct s_stack **A,int *num_arr)
+{
+    int i;
+
+    i = (*A)->max_a;
+    while(num_arr[i] != 1 && i > 0)
+        i--;
+    if(num_arr[i] == 1)
+    {
+        (*A)->end = (i)*-1;
+        return ;
+    }
+    while(num_arr[i] != 2 && i < (*A)->max_a)
+        i++;
+    (*A)->end = i; 
+}
+void    push_swap(struct s_stack **A, struct s_stack **B)
+{
+    int num_arr[(*A)->max_a];
+    struct s_node *tmp;
+
+    tmp = (*A)->stack;
+    set_count_array(A,num_arr);
+    setCue(A,num_arr);
+    for(int i = 0; i <= (*A)->max_a; i++)
+        ft_printf("Index: %i      Value:  %i  \n", i, num_arr[i]);
+    while(tmp->next)
+        tmp = tmp->next;
+    (*A)->tail = tmp;
+    (*A)->pivot = splitter(A,B);
+    if(isSorted(A) && isEmpty(B))
+    {
+        print_set(A,B);
+        print_moves(A);
+        return ;
+    }
+    print_set(A,B);
+    ft_printf("YO\n");
+    sorter(A,B,num_arr);
+    print_moves(A);
+}
+
 void toStack(int value, struct s_stack **A)
 {
     struct s_node *node;
@@ -22,20 +64,16 @@ void toStack(int value, struct s_stack **A)
 
 void    set_datum(struct s_stack **A, int *num_arr, int size)
 {
-    //struct s_node *linked;
     struct s_node *node;
     int i;
     int big;
 
     i = 0;
     node = NULL;
-    //linked = NULL;
     big = 0;
     while(i < size)
     {
-        //node = initNode(num_arr[i]);
-        (*A)->max_a = checkMax(/*node->value*/num_arr[i], &big);
-        //linked = initList(linked,node);
+        (*A)->max_a = checkMax(num_arr[i], &big);
         i++;
     }
     i--;
@@ -59,10 +97,11 @@ int main(int ac, char **av)
     num_list = initArray(av, length);
     set_datum(&A, num_list, length);
     print_set(&A, &B);
-    PB(&A, &B);
-    PB(&A, &B);
-    PB(&A, &B);
-    RRA(&A);
-    print_set(&A, &B);
+    if(isSorted(&A))
+    {
+        ft_printf("Sorted in 0 moves\n");
+        return 1;
+    }
+    push_swap(&A,&B);
     return 1;
 }

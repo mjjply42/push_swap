@@ -1,6 +1,6 @@
 #include "../push_swap.h"
 
-void    SB(struct s_stack **B)
+void    SB(struct s_stack **A,struct s_stack **B)
 {
     struct s_stack **b;
     struct s_node *tmp;
@@ -18,6 +18,7 @@ void    SB(struct s_stack **B)
         tmp->prev = NULL;
         (*b)->stack = tmp;
     }
+    add_command(A,"sb");
 }
 
 void    PB(struct s_stack **A, struct s_stack **B)
@@ -31,9 +32,10 @@ void    PB(struct s_stack **A, struct s_stack **B)
     (*A)->capacity--;
     push(B, node);
     (*B)->capacity++;
+    add_command(A,"pb");
 }
 
-void    RB(struct s_stack **B)
+void    RB(struct s_stack **A,struct s_stack **B)
 {
     struct s_node *tmp;
     struct s_node *curr;
@@ -47,9 +49,12 @@ void    RB(struct s_stack **B)
     curr = curr->next;
     (*B)->stack->next = NULL;
     (*B)->stack = curr;
+    ft_printf("WTF DAWG\n");
+    print_set(A,B);
+    add_command(A,"rb");
 }
 
-void    RRB(struct s_stack **B)
+void    RRB(struct s_stack **A,struct s_stack **B)
 {
 
     struct s_node *tmp;
@@ -68,4 +73,5 @@ void    RRB(struct s_stack **B)
     curr->next = NULL;
     tmp->next = (*B)->stack;
     (*B)->stack = tmp;
+    add_command(A,"rrb");
 }
