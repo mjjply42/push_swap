@@ -3,6 +3,7 @@
 
 #include "libft/libft.h"
 #include "libft/printf/ft_printf.h"
+#include <unistd.h>
 
 /////////////////////////////////////////////
 /////*Structs for Stack and Stack Nodes*/////

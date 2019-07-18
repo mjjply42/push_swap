@@ -25,21 +25,32 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-MAIN = main.c
+P_MAIN = push_swap.c
+c_MAIN = checker.c
 
-SRC_C = init.c \
+P_SRC_C = init.c \
 		helpers.c \
 		a_operations.c \
 		b_operations.c \
+		both_operations.c \
 		print.c \
 		standard.c \
-		push_swap.c \
+		starters.c \
 		extra.c \
+		stack.c \
+		error.c \
 
-SRC = $(addprefix src/, $(SRC_C))
+C_SRC_C = checker.c \
 
-OBJ = $(SRC_C:.c=.o)\
-	  $(MAIN:.c=.o)
+P_SRC = $(addprefix push_src/, $(P_SRC_C))
+C_SRC = $(addprefix check_src/, $(C_SRC_C))
+
+P_OBJ = $(P_SRC_C:.c=.o)\
+		$(P_MAIN:.c=.o)\
+
+C_OBJ = $(C_SRC_C:.c=.o)\
+		$(C_MAIN:.c=.o)\
+		$(P_SRC_C:.c=.o)\
 
 LIBFT = libft/libft.a
 LIBFTH = libft/libft.h
@@ -51,23 +62,27 @@ all: $(NAME) $(NAME1)
 $(LIBFT):
 	@make -C libft
 
-$(OBJ): $(MAIN)
-	@gcc $(CFLAGS) -c $(MAIN) $(SRC)
+$(P_OBJ): $(P_MAIN)
+	@gcc $(CFLAGS) -c $(P_MAIN) $(P_SRC)
+
+$(C_OBJ): $(C_MAIN)
+	@gcc $(CFLAGS) -c $(C_MAIN) $(C_SRC)
 
 ##Compiles Push_Swap executable and all dependencies
-$(NAME): $(LIBFT) $(OBJ)
+$(NAME): $(LIBFT) $(P_OBJ)
 	@printf "Making $(Purple)push_swap$(End) . . . "
-	@gcc $(OBJ) -o $(NAME) $(LIBFTLINK)
+	@gcc $(P_OBJ) -o $(NAME) $(LIBFTLINK)
 	@printf "$(Yellow)Done$(End)\n"
 
 ##Compiles Checker executable and all dependencies
-$(NAME1):
+$(NAME1): $(C_OBJ)
 	@printf "Making $(Green)checker$(End) . . . "
-	@gcc $(OBJ) -o $(NAME1) $(LIBFTLINK)
+	@gcc $(C_OBJ) -o $(NAME1) $(LIBFTLINK)
 	@printf "$(Yellow)Done$(End)\n"
 
 clean:
-	@/bin/rm -rf $(OBJ)
+	@/bin/rm -rf $(P_OBJ)
+	@/bin/rm -rf $(C_OBJ)
 
 pclean: clean
 	@/bin/rm -f push_swap
