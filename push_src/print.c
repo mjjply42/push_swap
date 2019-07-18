@@ -30,6 +30,7 @@ void    print_set(struct s_stack **A, struct s_stack **B)
     ft_printf("\n");
 }
 
+//Prints the linked list of comamnds needed to sort the given stack
 void    print_moves(struct s_stack **A)
 {
     struct t_list *tmp;

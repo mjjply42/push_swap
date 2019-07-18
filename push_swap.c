@@ -1,6 +1,8 @@
 #include "push_swap.h"
 #include "checker.h"
 
+//Sets the low value, or supposed beginning element of the stack.
+//Once this values is at the top, it signifies that the current sort, is the last sort
 void    setCue(struct s_stack **A,int *num_arr)
 {
     int i;
@@ -17,6 +19,8 @@ void    setCue(struct s_stack **A,int *num_arr)
         i++;
     (*A)->end = i; 
 }
+
+//Starts Push_Swap algorithm
 void    push_swap(struct s_stack **A, struct s_stack **B)
 {
     int num_arr[(*A)->max_a];
@@ -38,6 +42,8 @@ void    push_swap(struct s_stack **A, struct s_stack **B)
     print_moves(A);
 }
 
+//Main function to grab console input,turn it into an array of values, push those values to a stack,
+//as well as start the Push_Swap algorithm to sort the stack contents
 int main(int ac, char **av)
 {
     int length;

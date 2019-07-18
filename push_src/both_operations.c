@@ -1,5 +1,6 @@
 #include "../push_swap.h"
 
+//Operations SA and SB
 void    SS(struct s_stack **A, struct s_stack **B)
 {
     SA(A);
@@ -7,6 +8,7 @@ void    SS(struct s_stack **A, struct s_stack **B)
     add_command(A,"ss");
 }
 
+//Operations RA and RB
 void    RR(struct s_stack **A, struct s_stack **B)
 {
     RA(A);
@@ -14,6 +16,7 @@ void    RR(struct s_stack **A, struct s_stack **B)
     add_command(A,"rr");
 }
 
+//Operations RRA and RRB
 void    RRR(struct s_stack **A, struct s_stack **B)
 {
     RRA(A);

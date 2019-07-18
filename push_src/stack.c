@@ -1,5 +1,6 @@
 #include "../push_swap.h"
 
+//Finds the next lowest value possible, in the given numbers to sort
 int     checkNext(int *num_arr,struct s_stack **A)
 {
     int number;
@@ -22,6 +23,7 @@ int     checkNext(int *num_arr,struct s_stack **A)
     return number;
 }
 
+//Checks top of stack A for immediate match to the value
 int     checkA_Stack(struct s_stack **A,int *num_arr,int *index)
 {
     if((*A)->stack->value == *index)
@@ -39,6 +41,7 @@ int     checkA_Stack(struct s_stack **A,int *num_arr,int *index)
     return *index;
 }
 
+//Checks top and bottom of stack B for immediate match to the value
 void    checkB_Stack(struct s_stack **A, struct s_stack **B,int *index)
 {
     if((*B)->stack->value == *index)
@@ -56,6 +59,7 @@ void    checkB_Stack(struct s_stack **A, struct s_stack **B,int *index)
     }
 }
 
+//Checks stack A for match to the value
 int     checkA_Match(struct s_stack **A,int *index)
 {
     int is_a;
@@ -79,6 +83,7 @@ int     checkA_Match(struct s_stack **A,int *index)
     return is_a;
 }
 
+//Checks stack B for match to the value
 int     checkB_Match(struct s_stack **B,int *index)
 {
     int is_b;

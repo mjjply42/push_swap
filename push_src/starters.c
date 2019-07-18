@@ -1,5 +1,7 @@
 #include "../push_swap.h"
 
+//Splits initial lower-than-pivot-values to stack B. This sort, and particular
+//sorting algorithm, is based on quicksort, and the partition function of quicksort, respectively
 struct  s_node  *splitter(struct s_stack **A, struct s_stack **B)
 {
     struct s_node *pivot_node;
@@ -20,6 +22,8 @@ struct  s_node  *splitter(struct s_stack **A, struct s_stack **B)
     return pivot_node;
 }
 
+//Sets next value available to sort, and checks to see if any of the values at the 
+//top of stackA, or top/bottom of stcak B match
 void    setter(struct s_stack **A,struct s_stack **B,int *num_arr,int *index)
 {
     while((*A)->stack != (*A)->pivot)
@@ -33,6 +37,7 @@ void    setter(struct s_stack **A,struct s_stack **B,int *num_arr,int *index)
     }
 }
 
+//Seeks all 0(1) opportunities of for next value in line to be sorted to bottom of stack A
 void    seeker(struct s_stack **A,struct s_stack **B,int *num_arr,int *index)
 {
     if((*B)->stack != NULL)
@@ -48,6 +53,8 @@ void    seeker(struct s_stack **A,struct s_stack **B,int *num_arr,int *index)
     }
 }
 
+//Strips values higher than the pivot from stack A, moves pivot to the bottom of stack A,
+//then sorts B and appends to bottom of stack A in order
 void    stripper(struct s_stack **A,struct s_stack **B,int *num_arr)
 {
     int i;
@@ -87,6 +94,11 @@ void    stripper(struct s_stack **A,struct s_stack **B,int *num_arr)
     }
 }
 
+//Function begins initial sort of stack B. The sorting is done in 3 main functions.
+//We first split lower values from A and move them to B.
+//Then we empty/sort values from B to A. Once all values lower than the pivot are sorted,
+//we strip A of those high values, and push them to B, to start the sort process all over again.
+//That will be the last step.A sort is always gauaranteed after the last sorting step.
 void    sorter(struct s_stack **A, struct s_stack **B,int *num_arr)
 {
     int i;

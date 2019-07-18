@@ -1,5 +1,6 @@
 #include "../push_swap.h"
 
+//Sets the tail node of the stack B
 struct s_node   *setB_Tail(struct s_stack **B)
 {
     struct s_node *tmp;
@@ -10,6 +11,7 @@ struct s_node   *setB_Tail(struct s_stack **B)
     return tmp;
 }
 
+//Creats node with new value (initNode()), then adds node to stack A
 void toStack(int value, struct s_stack **A)
 {
     struct s_node *node;
@@ -30,6 +32,7 @@ void toStack(int value, struct s_stack **A)
     (*A)->capacity++;
 }
 
+//Sets stack A data from number array, gathered from console input
 void    set_datum(struct s_stack **A, int *num_arr, int size)
 {
     struct s_node *node;

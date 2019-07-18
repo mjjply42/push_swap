@@ -1,6 +1,7 @@
 #include "../push_swap.h"
 #include "../checker.h"
 
+//Error checking the input for words: "1 2 3 four"
 int     check_noLet_error(int ac,char **av)
 {
     int i = 1;
@@ -22,6 +23,7 @@ int     check_noLet_error(int ac,char **av)
     return 1;
 }
 
+//Error checking the input for numbers larger than INT_MAX
 int     check_int(char *str)
 {
     unsigned long long test;
@@ -31,6 +33,7 @@ int     check_int(char *str)
     return 1;
 }
 
+//Error checking the input for duplicate integers: "1 2 3 2"
 int     check_doubles(int *num_arr,int length)
 {
     int i;
@@ -61,6 +64,8 @@ int     check_doubles(int *num_arr,int length)
     return 1;
 }
 
+//Error checking the input for proper formatting. Has to be command, then newline. No other characters
+// can interrupt the command + newline order.
 void        check_formatting(char prev_char,char curr_char,char next_char)
 {
 

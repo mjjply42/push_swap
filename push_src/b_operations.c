@@ -1,5 +1,6 @@
 #include "../push_swap.h"
 
+//Swaps top elements of stack B
 void    SB(struct s_stack **A,struct s_stack **B)
 {
     struct s_stack **b;
@@ -21,6 +22,7 @@ void    SB(struct s_stack **A,struct s_stack **B)
     add_command(A,"sb");
 }
 
+//Pushes Top element of stack A to stack B
 void    PB(struct s_stack **A, struct s_stack **B)
 {
     struct s_node *node;
@@ -35,6 +37,7 @@ void    PB(struct s_stack **A, struct s_stack **B)
     add_command(A,"pb");
 }
 
+//Moves top element of stack B to bottom of stack
 void    RB(struct s_stack **A,struct s_stack **B)
 {
     struct s_node *tmp;
@@ -49,11 +52,10 @@ void    RB(struct s_stack **A,struct s_stack **B)
     curr = curr->next;
     (*B)->stack->next = NULL;
     (*B)->stack = curr;
-    //ft_printf("WTF DAWG\n");
-    //print_set(A,B);
     add_command(A,"rb");
 }
 
+//Moves bottom element of stack B to top of stack
 void    RRB(struct s_stack **A,struct s_stack **B)
 {
 

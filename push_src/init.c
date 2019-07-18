@@ -51,6 +51,7 @@ int  *initArray(char **list, int length)
     return num_list; 
 }
 
+//Creates node for commands, to put into linked list of commands for algorithm
 struct t_list   *initCommNode(char *str)
 {
     struct t_list *node;
@@ -65,6 +66,7 @@ struct t_list   *initCommNode(char *str)
     return node;
 }
 
+//Initializes the linked list of commands
 void        initList(struct t_list **list, char *str)
 {
     struct t_list *tmp;

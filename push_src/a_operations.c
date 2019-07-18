@@ -1,5 +1,6 @@
 #include "../push_swap.h"
 
+//Swaps top elements of stack A
 void    SA(struct s_stack **A)
 {
     struct s_stack **a;
@@ -21,6 +22,7 @@ void    SA(struct s_stack **A)
     add_command(A, "sa");
 }
 
+//Pushes Top element of stack B to stack A
 void    PA(struct s_stack **B, struct s_stack **A)
 {
     struct s_node *node;
@@ -35,6 +37,7 @@ void    PA(struct s_stack **B, struct s_stack **A)
     add_command(A,"pa");
 }
 
+//Moves top element of stack A to bottom of stack
 void    RA(struct s_stack **A)
 {
     struct s_node *tmp;
@@ -52,6 +55,7 @@ void    RA(struct s_stack **A)
     add_command(A,"ra");
 }
 
+//Moves bottom element of stack A to top of stack
 void    RRA(struct s_stack **A)
 {
 
