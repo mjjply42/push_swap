@@ -1,6 +1,32 @@
 #include "push_swap.h"
 #include "checker.h"
 
+void    final(struct s_stack **A,struct s_stack **B)
+{
+    struct s_node *tmp;
+
+    tmp = (*A)->stack;
+    toEnd(&tmp);
+    while(!isEmpty(B))
+    {
+        if((*A)->stack->value < (*B)->stack->value)
+        {
+            RA(A);
+            tmp = tmp->next;
+        }
+        else if((*B)->stack->value < tmp->value && tmp->value != (*A)->max_a)
+        { 
+            tmp = tmp->prev;
+            RRA(A);
+        }
+        if(isSorted(A) && !isSorted(B))
+            while((*B)->stack->value != findBig(B))
+                RRB(A,B);
+        PA(B,A);
+        (*A)->stack->sorted = 1;
+    }
+}
+
 //Sets the low value, or supposed beginning element of the stack.
 //Once this values is at the top, it signifies that the current sort, is the last sort
 void    setCue(struct s_stack **A,int *num_arr)
@@ -20,25 +46,63 @@ void    setCue(struct s_stack **A,int *num_arr)
     (*A)->end = i; 
 }
 
+void    other_end(struct s_stack **A,struct s_stack **B,int next_up)
+{
+    if((*A)->stack->value != (*A)->max_a)
+    {
+        if((*A)->stack->value == next_up && (*A)->stack->next->value == (*A)->max_a)
+        {
+            RA(A);
+            (*A)->tail = (*A)->tail->next;
+        }
+        else if((*A)->stack->value == next_up && (*A)->stack->sorted == 0)
+            SA(A);
+        else
+        {
+            prepB(A,B,(*A)->stack->value);
+            PB(A,B);   
+        }
+    }
+    else
+    {
+        RA(A);
+        (*A)->tail = (*A)->tail->next;
+    }
+}
+
+void    highEnd(struct s_stack **A,struct s_stack **B,int side)
+{
+    int next_up;
+    next_up = getNextValue(A,(*A)->max_a);
+    while((*A)->tail->value != (*A)->max_a)
+    {
+        if(side == 1)
+        {
+            (*A)->tail = (*A)->tail->prev;
+            RRA(A);
+        }
+        else
+            other_end(A,B,next_up);
+    }
+}
+
 //Starts Push_Swap algorithm
 void    push_swap(struct s_stack **A, struct s_stack **B)
 {
     int num_arr[(*A)->max_a];
+    int side;
     struct s_node *tmp;
 
     tmp = (*A)->stack;
     set_count_array(A,num_arr);
     setCue(A,num_arr);
-    while(tmp->next)
-        tmp = tmp->next;
+    toEnd(&tmp);
     (*A)->tail = tmp;
-    (*A)->pivot = splitter(A,B);
-    if(isSorted(A) && isEmpty(B))
-    {
-        print_moves(A);
-        return ;
-    }
-    sorter(A,B,num_arr);
+    side = findSide(A,(*A)->max_a);
+    highEnd(A,B,side);
+    set_sort_status(A);
+    align_to_front(A,B);
+    final(A,B);
     print_moves(A);
 }
 
@@ -58,7 +122,7 @@ int main(int ac, char **av)
     num_list = initArray(av, length);
     check_doubles(num_list,length);
     set_datum(&A, num_list, length);
-    if(isSorted(&A))
+    if(isSorted(&A) == 1)
         return 1;
     push_swap(&A,&B);
     return 1;

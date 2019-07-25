@@ -26,7 +26,7 @@ int     check_noLet_error(int ac,char **av)
 //Error checking the input for numbers larger than INT_MAX
 int     check_int(char *str)
 {
-    unsigned long long test;
+    long long test;
     test = ft_atoi(str);
     if(test > 2147483647 || (long)test < -2147483648)
         terminate_program();
@@ -53,10 +53,7 @@ int     check_doubles(int *num_arr,int length)
         while(j < length)
         {
             if(tmp == num_arr[j] && index != j)
-            {
-                ft_printf("Wha\n");
                 terminate_program();
-            }
             j++;
         }
         i++;

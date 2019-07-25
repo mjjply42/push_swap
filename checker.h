@@ -2,7 +2,6 @@
 # define CHECKER_H
 # define BUFF_SIZE 1
 #include "libft/libft.h"
-#include "push_swap.h"
 #include "libft/printf/ft_printf.h"
 #include <unistd.h>
 

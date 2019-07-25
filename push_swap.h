@@ -12,6 +12,7 @@
 struct      s_node
 {
     int     value;
+    int     sorted;
     struct  s_node *next;
     struct  s_node *prev;
 };
@@ -38,12 +39,22 @@ struct      s_stack *initStack();
 struct      s_node *initNode(int value);
 struct      s_node  *splitter(struct s_stack **A, struct s_stack **B);
 struct      s_node   *setB_Tail(struct s_stack **B);
+int         findBig(struct s_stack **B);
+int         findSide(struct s_stack **A,int value);
+int         getNextValue(struct s_stack **A,int big);
+void        toEnd(struct s_node **tmp);
+int        set_sort_status(struct s_stack **A);
+struct s_node   *find_node(struct s_stack **st,int val);
+void        quicksort(int *number,int first,int last);
+void        align_to_front(struct s_stack **A,struct s_stack **B);
+void        sortB(struct s_stack **A,struct s_stack **B);
 void        sorter(struct s_stack **A, struct s_stack **B,int *num_arr);
 void        stripper(struct s_stack **A,struct s_stack **B,int *num_arr);
 void        setter(struct s_stack **A,struct s_stack **B,int *num_arr,int *index);
 void        seeker(struct s_stack **A,struct s_stack **B,int *num_arr,int *index);
 void        push(struct s_stack **st, struct s_node *node);
 void        toStack(int value, struct s_stack **A);
+void        prepB(struct s_stack **A,struct s_stack **B,int incoming);
 void        setCue(struct s_stack **A,int *num_arr);
 void        set_datum(struct s_stack **A, int *num_arr, int size);
 void        SA(struct s_stack **A);

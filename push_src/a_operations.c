@@ -12,12 +12,24 @@ void    SA(struct s_stack **A)
         return ;
     else
     {
-        tmp = (*a)->stack->next;
-        tmp->next->prev = (*a)->stack;
-        (*a)->stack->next = tmp->next;
-        tmp->next = (*a)->stack;
-        tmp->prev = NULL;
-        (*a)->stack = tmp;
+        ft_printf("Cap %i\n", (*a)->capacity);
+        if((*a)->capacity > 2) 
+        {   
+            tmp = (*a)->stack->next;
+            tmp->next->prev = (*a)->stack;
+            (*a)->stack->next = tmp->next;
+            tmp->next = (*a)->stack;
+            tmp->prev = NULL;
+            (*a)->stack = tmp;
+        }
+        else
+        {
+            tmp = (*a)->stack->next;
+            tmp->next = (*a)->stack;
+            (*a)->stack->next = NULL;
+            (*a)->stack = tmp;
+        }
+        
     }
     add_command(A, "sa");
 }

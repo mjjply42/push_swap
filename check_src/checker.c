@@ -1,4 +1,5 @@
 #include "../checker.h"
+#include "../push_swap.h"
 
 char    *setOrders()
 {
@@ -74,6 +75,7 @@ void    checker(struct s_stack *A,struct s_stack *B)
 
     orders = setOrders();
     run_commands(&A,&B,orders);
+    //print_set(&A,&B);
     if(isSorted(&A))
         ft_printf("OK\n");
     else
@@ -86,7 +88,12 @@ int     main(int ac,char **av)
     int *num_list;
     struct s_stack *A;
     struct s_stack *B;
-
+    
+    if(ac < 2)
+    {
+        ft_printf("OK\n");
+        return 1;
+    }
     length = ac-1;
     A = initStack();
     B = initStack();

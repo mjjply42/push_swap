@@ -10,15 +10,22 @@ void    SB(struct s_stack **A,struct s_stack **B)
     tmp = (*b)->stack;
     if((*b)->capacity == 0 || (*b)->capacity == 1)
         return ;
-    else
-    {
-        tmp = (*b)->stack->next;
-        tmp->next->prev = (*b)->stack;
-        (*b)->stack->next = tmp->next;
-        tmp->next = (*b)->stack;
-        tmp->prev = NULL;
-        (*b)->stack = tmp;
-    }
+    if((*b)->capacity > 2) 
+        {   
+            tmp = (*b)->stack->next;
+            tmp->next->prev = (*b)->stack;
+            (*b)->stack->next = tmp->next;
+            tmp->next = (*b)->stack;
+            tmp->prev = NULL;
+            (*b)->stack = tmp;
+        }
+        else
+        {
+            tmp = (*b)->stack->next;
+            tmp->next = (*b)->stack;
+            (*b)->stack->next = NULL;
+            (*b)->stack = tmp;
+        }
     add_command(A,"sb");
 }
 

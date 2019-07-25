@@ -8,6 +8,7 @@ struct s_node   *initNode(int value)
     if(NULL == (node = malloc(sizeof(struct s_node))))
         return NULL;
     node->value = value;
+    node->sorted = 0;
     node->prev = NULL;
     node->next = NULL;
     return node;
