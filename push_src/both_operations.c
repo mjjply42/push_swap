@@ -1,25 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   both_operations.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: majones <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/25 03:04:30 by majones           #+#    #+#             */
+/*   Updated: 2019/07/25 03:04:39 by majones          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
-//Operations SA and SB
-void    SS(struct s_stack **A, struct s_stack **B)
+void	ss(struct s_stack **a, struct s_stack **b)
 {
-    SA(A);
-    SB(A,B);
-    add_command(A,"ss");
+	sa(a);
+	sb(a, b);
+	add_command(a, "ss");
 }
 
-//Operations RA and RB
-void    RR(struct s_stack **A, struct s_stack **B)
+void	rr(struct s_stack **a, struct s_stack **b)
 {
-    RA(A);
-    RB(A,B);
-    add_command(A,"rr");
+	ra(a);
+	rb(a, b);
+	add_command(a, "rr");
 }
 
-//Operations RRA and RRB
-void    RRR(struct s_stack **A, struct s_stack **B)
+void	rrr(struct s_stack **a, struct s_stack **b)
 {
-    RRA(A);
-    RRB(A,B);
-    add_command(A,"rrr");
+	rra(a);
+	rrb(a, b);
+	add_command(a, "rrr");
 }

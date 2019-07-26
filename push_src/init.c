@@ -1,89 +1,98 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: majones <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/25 03:03:27 by majones           #+#    #+#             */
+/*   Updated: 2019/07/25 03:03:30 by majones          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
-/*Creates a node for the Stack, and returns it*/
-struct s_node   *initNode(int value)
+struct s_node	*init_node(int value)
 {
-    struct s_node *node = NULL;
+	struct s_node *node;
 
-    if(NULL == (node = malloc(sizeof(struct s_node))))
-        return NULL;
-    node->value = value;
-    node->sorted = 0;
-    node->prev = NULL;
-    node->next = NULL;
-    return node;
+	node = NULL;
+	if (NULL == (node = malloc(sizeof(struct s_node))))
+		return (NULL);
+	node->value = value;
+	node->sorted = 0;
+	node->prev = NULL;
+	node->next = NULL;
+	return (node);
 }
 
-/*Creates a Stack struct, and returns it*/
-struct s_stack *initStack()
+struct s_stack	*init_stack(void)
 {
-    struct s_stack *stack = NULL;
+	struct s_stack *stack;
 
-    if(NULL == (stack = malloc(sizeof(struct s_stack))))
-        return NULL;
-    stack->capacity = 0;
-    stack->max_a = 0;
-    stack->end = 0;
-    stack->pivot = NULL;
-    stack->list = NULL;
-    stack->stack = NULL;
-    stack->tail = NULL;
-    return stack;
+	stack = NULL;
+	if (NULL == (stack = malloc(sizeof(struct s_stack))))
+		return (NULL);
+	stack->capacity = 0;
+	stack->max_a = 0;
+	stack->end = 0;
+	stack->pivot = NULL;
+	stack->list = NULL;
+	stack->stack = NULL;
+	stack->tail = NULL;
+	return (stack);
 }
 
-/*Initializes a list of all the integers passed from ARGV(list). Returns the list*/
-int  *initArray(char **list, int length)
+int				*init_array(char **list, int length)
 {
-    int i;
-    int number;
-    int *num_list;
+	int i;
+	int number;
+	int *num_list;
 
-    i = 1;
-    number = 0;
-    if(NULL == (num_list = malloc(sizeof(int) * length + 1)))
-        return NULL;
-    while(i <= length)
-    {
-        number = ft_atoi(list[i]);
-        num_list[i - 1] = number;
-        i++;
-    }
-    num_list[length] = '\0';
-    return num_list; 
+	i = 1;
+	number = 0;
+	if (NULL == (num_list = malloc(sizeof(int) * length + 1)))
+		return (NULL);
+	while (i <= length)
+	{
+		number = ft_atoi(list[i]);
+		num_list[i - 1] = number;
+		i++;
+	}
+	num_list[length] = '\0';
+	return (num_list);
 }
 
-//Creates node for commands, to put into linked list of commands for algorithm
-struct t_list   *initCommNode(char *str)
+struct s_lis	*init_comm_node(char *str)
 {
-    struct t_list *node;
+	struct s_lis *node;
 
-    if(NULL ==(node = malloc(sizeof(struct t_list))))
-        return NULL;
-    else
-    {
-        node->command = ft_strdup(str);
-        node->next = NULL;
-    }
-    return node;
+	if (NULL == (node = malloc(sizeof(struct s_lis))))
+		return (NULL);
+	else
+	{
+		node->command = ft_strdup(str);
+		node->next = NULL;
+	}
+	return (node);
 }
 
-//Initializes the linked list of commands
-void        initList(struct t_list **list, char *str)
+void			init_list(struct s_lis **list, char *str)
 {
-    struct t_list *tmp;
-    struct t_list *node;
+	struct s_lis *tmp;
+	struct s_lis *node;
 
-    node = initCommNode(str);
-    if(*list == NULL)
-    {
-        *list = node;
-        node->next = NULL;
-    }
-    else
-    {
-        tmp = *list;
-        while(tmp->next)
-            tmp = tmp->next;
-        tmp->next = node;
-    }
+	node = init_comm_node(str);
+	if (*list == NULL)
+	{
+		*list = node;
+		node->next = NULL;
+	}
+	else
+	{
+		tmp = *list;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = node;
+	}
 }

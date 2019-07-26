@@ -1,86 +1,93 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   b_operations.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: majones <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/24 23:02:27 by majones           #+#    #+#             */
+/*   Updated: 2019/07/25 03:04:17 by majones          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
-//Swaps top elements of stack B
-void    SB(struct s_stack **A,struct s_stack **B)
+void		sb(struct s_stack **a, struct s_stack **b)
 {
-    struct s_stack **b;
-    struct s_node *tmp;
-    
-    b = B;
-    tmp = (*b)->stack;
-    if((*b)->capacity == 0 || (*b)->capacity == 1)
-        return ;
-    if((*b)->capacity > 2) 
-        {   
-            tmp = (*b)->stack->next;
-            tmp->next->prev = (*b)->stack;
-            (*b)->stack->next = tmp->next;
-            tmp->next = (*b)->stack;
-            tmp->prev = NULL;
-            (*b)->stack = tmp;
-        }
-        else
-        {
-            tmp = (*b)->stack->next;
-            tmp->next = (*b)->stack;
-            (*b)->stack->next = NULL;
-            (*b)->stack = tmp;
-        }
-    add_command(A,"sb");
+	struct s_stack	**b_b;
+	struct s_node	*tmp;
+
+	b_b = b;
+	tmp = (*b)->stack;
+	if ((*b_b)->capacity == 0 || (*b_b)->capacity == 1)
+		return ;
+	if ((*b_b)->capacity > 2)
+	{
+		tmp = (*b_b)->stack->next;
+		tmp->next->prev = (*b_b)->stack;
+		(*b_b)->stack->next = tmp->next;
+		tmp->next = (*b_b)->stack;
+		tmp->prev = NULL;
+		(*b_b)->stack = tmp;
+	}
+	else
+	{
+		tmp = (*b_b)->stack->next;
+		tmp->next = (*b_b)->stack;
+		(*b_b)->stack->next = NULL;
+		(*b_b)->stack = tmp;
+	}
+	add_command(a, "sb");
 }
 
-//Pushes Top element of stack A to stack B
-void    PB(struct s_stack **A, struct s_stack **B)
+void		pb(struct s_stack **a, struct s_stack **b)
 {
-    struct s_node *node;
-    
-    node = NULL;
-    if((*A)->capacity == 0)
-        return ;
-    node = pop(A);
-    (*A)->capacity--;
-    push(B, node);
-    (*B)->capacity++;
-    add_command(A,"pb");
+	struct s_node *node;
+
+	node = NULL;
+	if ((*a)->capacity == 0)
+		return ;
+	node = pop(a);
+	(*a)->capacity--;
+	push(b, node);
+	(*b)->capacity++;
+	add_command(a, "pb");
 }
 
-//Moves top element of stack B to bottom of stack
-void    RB(struct s_stack **A,struct s_stack **B)
+void		rb(struct s_stack **a, struct s_stack **b)
 {
-    struct s_node *tmp;
-    struct s_node *curr;
-    
-    tmp = (*B)->stack;
-    curr = tmp;
-    while(tmp->next)
-        tmp = tmp->next;
-    tmp->next = curr;
-    curr->prev = tmp;
-    curr = curr->next;
-    (*B)->stack->next = NULL;
-    (*B)->stack = curr;
-    add_command(A,"rb");
+	struct s_node *tmp;
+	struct s_node *curr;
+
+	tmp = (*b)->stack;
+	curr = tmp;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = curr;
+	curr->prev = tmp;
+	curr = curr->next;
+	(*b)->stack->next = NULL;
+	(*b)->stack = curr;
+	add_command(a, "rb");
 }
 
-//Moves bottom element of stack B to top of stack
-void    RRB(struct s_stack **A,struct s_stack **B)
+void		rrb(struct s_stack **a, struct s_stack **b)
 {
+	struct s_node *tmp;
+	struct s_node *curr;
 
-    struct s_node *tmp;
-    struct s_node *curr;
-
-    tmp = (*B)->stack;
-    curr = tmp;
-    if(tmp->next)
-    tmp = tmp->next;
-    while(tmp->next)
-    {
-        curr = tmp;
-        tmp = tmp->next;
-    }
-    tmp->prev = NULL;
-    curr->next = NULL;
-    tmp->next = (*B)->stack;
-    (*B)->stack = tmp;
-    add_command(A,"rrb");
+	tmp = (*b)->stack;
+	curr = tmp;
+	if (tmp->next)
+		tmp = tmp->next;
+	while (tmp->next)
+	{
+		curr = tmp;
+		tmp = tmp->next;
+	}
+	tmp->prev = NULL;
+	curr->next = NULL;
+	tmp->next = (*b)->stack;
+	(*b)->stack = tmp;
+	add_command(a, "rrb");
 }

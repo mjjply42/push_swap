@@ -1,129 +1,115 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: majones <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/25 05:42:25 by majones           #+#    #+#             */
+/*   Updated: 2019/07/25 05:42:29 by majones          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 #include "checker.h"
 
-void    final(struct s_stack **A,struct s_stack **B)
+void	set_cue(struct s_stack **a, int *num_arr)
 {
-    struct s_node *tmp;
+	int i;
 
-    tmp = (*A)->stack;
-    toEnd(&tmp);
-    while(!isEmpty(B))
-    {
-        if((*A)->stack->value < (*B)->stack->value)
-        {
-            RA(A);
-            tmp = tmp->next;
-        }
-        else if((*B)->stack->value < tmp->value && tmp->value != (*A)->max_a)
-        { 
-            tmp = tmp->prev;
-            RRA(A);
-        }
-        if(isSorted(A) && !isSorted(B))
-            while((*B)->stack->value != findBig(B))
-                RRB(A,B);
-        PA(B,A);
-        (*A)->stack->sorted = 1;
-    }
+	i = (*a)->max_a;
+	while (num_arr[i] != 1 && i > 0)
+		i--;
+	if (num_arr[i] == 1)
+	{
+		(*a)->end = (i) * -1;
+		return ;
+	}
+	while (num_arr[i] != 2 && i < (*a)->max_a)
+		i++;
+	(*a)->end = i;
 }
 
-//Sets the low value, or supposed beginning element of the stack.
-//Once this values is at the top, it signifies that the current sort, is the last sort
-void    setCue(struct s_stack **A,int *num_arr)
+void	other_end(struct s_stack **a, struct s_stack **b, int next_up)
 {
-    int i;
-
-    i = (*A)->max_a;
-    while(num_arr[i] != 1 && i > 0)
-        i--;
-    if(num_arr[i] == 1)
-    {
-        (*A)->end = (i)*-1;
-        return ;
-    }
-    while(num_arr[i] != 2 && i < (*A)->max_a)
-        i++;
-    (*A)->end = i; 
+	if ((*a)->stack->value != (*a)->max_a)
+	{
+		if ((*a)->stack->value == next_up &&
+			(*a)->stack->next->value == (*a)->max_a)
+		{
+			ra(a);
+			(*a)->tail = (*a)->tail->next;
+		}
+		else if ((*a)->stack->value == next_up && (*a)->stack->sorted == 0)
+			sa(a);
+		else
+		{
+			prep_b(a, b, (*a)->stack->value);
+			pb(a, b);
+		}
+	}
+	else
+	{
+		ra(a);
+		(*a)->tail = (*a)->tail->next;
+	}
 }
 
-void    other_end(struct s_stack **A,struct s_stack **B,int next_up)
+void	high_end(struct s_stack **a, struct s_stack **b, int side)
 {
-    if((*A)->stack->value != (*A)->max_a)
-    {
-        if((*A)->stack->value == next_up && (*A)->stack->next->value == (*A)->max_a)
-        {
-            RA(A);
-            (*A)->tail = (*A)->tail->next;
-        }
-        else if((*A)->stack->value == next_up && (*A)->stack->sorted == 0)
-            SA(A);
-        else
-        {
-            prepB(A,B,(*A)->stack->value);
-            PB(A,B);   
-        }
-    }
-    else
-    {
-        RA(A);
-        (*A)->tail = (*A)->tail->next;
-    }
+	int next_up;
+
+	next_up = get_next_value(a, (*a)->max_a);
+	while ((*a)->tail->value != (*a)->max_a)
+	{
+		if (side == 1)
+		{
+			(*a)->tail = (*a)->tail->prev;
+			rra(a);
+		}
+		else
+			other_end(a, b, next_up);
+	}
 }
 
-void    highEnd(struct s_stack **A,struct s_stack **B,int side)
+void	push_swap(struct s_stack **a, struct s_stack **b)
 {
-    int next_up;
-    next_up = getNextValue(A,(*A)->max_a);
-    while((*A)->tail->value != (*A)->max_a)
-    {
-        if(side == 1)
-        {
-            (*A)->tail = (*A)->tail->prev;
-            RRA(A);
-        }
-        else
-            other_end(A,B,next_up);
-    }
+	int				side;
+	struct s_node	*tmp;
+
+	tmp = (*a)->stack;
+	to_end(&tmp);
+	(*a)->tail = tmp;
+	side = find_side(a, (*a)->max_a);
+	high_end(a, b, side);
+	set_sort_status(a);
+	align_to_front(a, b);
+	final_move(a, b);
 }
 
-//Starts Push_Swap algorithm
-void    push_swap(struct s_stack **A, struct s_stack **B)
+int		main(int ac, char **av)
 {
-    int num_arr[(*A)->max_a];
-    int side;
-    struct s_node *tmp;
+	int				length;
+	int				*num_list;
+	struct s_stack	*a;
+	struct s_stack	*b;
 
-    tmp = (*A)->stack;
-    set_count_array(A,num_arr);
-    setCue(A,num_arr);
-    toEnd(&tmp);
-    (*A)->tail = tmp;
-    side = findSide(A,(*A)->max_a);
-    highEnd(A,B,side);
-    set_sort_status(A);
-    align_to_front(A,B);
-    final(A,B);
-    print_moves(A);
-}
-
-//Main function to grab console input,turn it into an array of values, push those values to a stack,
-//as well as start the Push_Swap algorithm to sort the stack contents
-int main(int ac, char **av)
-{
-    int length;
-    int *num_list;
-    struct s_stack *A;
-    struct s_stack *B;
-
-    length = ac-1;
-    check_noLet_error(ac,av);
-    A = initStack();
-    B = initStack();
-    num_list = initArray(av, length);
-    check_doubles(num_list,length);
-    set_datum(&A, num_list, length);
-    if(isSorted(&A) == 1)
-        return 1;
-    push_swap(&A,&B);
-    return 1;
+	length = ac - 1;
+	check_no_let_error(ac, av);
+	a = init_stack();
+	b = init_stack();
+	num_list = init_array(av, length);
+	check_doubles(num_list, length);
+	set_datum(&a, num_list, length);
+	free_num_list(num_list);
+	if (is_sorted(&a) == 1)
+		return (1);
+	push_swap(&a, &b);
+	while (!is_sorted(&a))
+		rra(&a);
+	print_moves(&a);
+	free_stack_struct(a);
+	free_stack_struct(b);
+	//system("leaks push_swap");
+	return (1);
 }

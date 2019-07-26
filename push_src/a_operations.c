@@ -1,91 +1,99 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   a_operations.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: majones <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/25 04:38:44 by majones           #+#    #+#             */
+/*   Updated: 2019/07/25 04:38:47 by majones          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
-//Swaps top elements of stack A
-void    SA(struct s_stack **A)
+void	sa2(struct s_stack **a_a, struct s_node **tmp)
 {
-    struct s_stack **a;
-    struct s_node *tmp;
-    
-    a = A;
-    tmp = (*a)->stack;
-    if((*a)->capacity == 0 || (*a)->capacity == 1)
-        return ;
-    else
-    {
-        ft_printf("Cap %i\n", (*a)->capacity);
-        if((*a)->capacity > 2) 
-        {   
-            tmp = (*a)->stack->next;
-            tmp->next->prev = (*a)->stack;
-            (*a)->stack->next = tmp->next;
-            tmp->next = (*a)->stack;
-            tmp->prev = NULL;
-            (*a)->stack = tmp;
-        }
-        else
-        {
-            tmp = (*a)->stack->next;
-            tmp->next = (*a)->stack;
-            (*a)->stack->next = NULL;
-            (*a)->stack = tmp;
-        }
-        
-    }
-    add_command(A, "sa");
+	*tmp = (*a_a)->stack->next;
+	(*tmp)->next = (*a_a)->stack;
+	(*a_a)->stack->next = NULL;
+	(*a_a)->stack = *tmp;
 }
 
-//Pushes Top element of stack B to stack A
-void    PA(struct s_stack **B, struct s_stack **A)
+void	sa(struct s_stack **a)
 {
-    struct s_node *node;
-    
-    node = NULL;
-    if((*A)->capacity == 0)
-        return ;
-    node = pop(B);
-    (*B)->capacity--;
-    push(A, node);
-    (*A)->capacity++;
-    add_command(A,"pa");
+	struct s_stack	**a_a;
+	struct s_node	*tmp;
+
+	a_a = a;
+	tmp = (*a_a)->stack;
+	if ((*a_a)->capacity == 0 || (*a_a)->capacity == 1)
+		return ;
+	else
+	{
+		if ((*a_a)->capacity > 2)
+		{
+			tmp = (*a_a)->stack->next;
+			tmp->next->prev = (*a_a)->stack;
+			(*a_a)->stack->next = tmp->next;
+			tmp->next = (*a_a)->stack;
+			tmp->prev = NULL;
+			(*a_a)->stack = tmp;
+		}
+		else
+			sa2(a_a, &tmp);
+	}
+	add_command(a, "sa");
 }
 
-//Moves top element of stack A to bottom of stack
-void    RA(struct s_stack **A)
+void	pa(struct s_stack **b, struct s_stack **a)
 {
-    struct s_node *tmp;
-    struct s_node *curr;
-    
-    tmp = (*A)->stack;
-    curr = tmp;
-    while(tmp->next)
-        tmp = tmp->next;
-    tmp->next = curr;
-    curr->prev = tmp;
-    curr = curr->next;
-    (*A)->stack->next = NULL;
-    (*A)->stack = curr;
-    add_command(A,"ra");
+	struct s_node *node;
+
+	node = NULL;
+	if ((*a)->capacity == 0 || (*b)->capacity == 0)
+		return ;
+	node = pop(b);
+	(*b)->capacity--;
+	push(a, node);
+	(*a)->capacity++;
+	add_command(a, "pa");
 }
 
-//Moves bottom element of stack A to top of stack
-void    RRA(struct s_stack **A)
+void	ra(struct s_stack **a)
 {
+	struct s_node *tmp;
+	struct s_node *curr;
 
-    struct s_node *tmp;
-    struct s_node *curr;
+	tmp = (*a)->stack;
+	curr = tmp;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = curr;
+	curr->prev = tmp;
+	curr = curr->next;
+	(*a)->stack->next = NULL;
+	(*a)->stack = curr;
+	add_command(a, "ra");
+}
 
-    tmp = (*A)->stack;
-    curr = tmp;
-    if(tmp->next)
-    tmp = tmp->next;
-    while(tmp->next)
-    {
-        curr = tmp;
-        tmp = tmp->next;
-    }
-    tmp->prev = NULL;
-    curr->next = NULL;
-    tmp->next = (*A)->stack;
-    (*A)->stack = tmp;
-    add_command(A,"rra");
+void	rra(struct s_stack **a)
+{
+	struct s_node *tmp;
+	struct s_node *curr;
+
+	tmp = (*a)->stack;
+	curr = tmp;
+	if (tmp->next)
+		tmp = tmp->next;
+	while (tmp->next)
+	{
+		curr = tmp;
+		tmp = tmp->next;
+	}
+	tmp->prev = NULL;
+	curr->next = NULL;
+	tmp->next = (*a)->stack;
+	(*a)->stack = tmp;
+	add_command(a, "rra");
 }

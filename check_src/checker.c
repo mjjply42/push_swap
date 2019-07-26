@@ -1,106 +1,121 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: majones <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/25 04:55:07 by majones           #+#    #+#             */
+/*   Updated: 2019/07/25 04:55:11 by majones          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../checker.h"
 #include "../push_swap.h"
 
-char    *setOrders()
+char	*set_orders(void)
 {
-    char *orders = NULL;
-    char buffer[BUFF_SIZE + 1];
+	char *orders;
+	char buffer[BUFF_SIZE + 1];
 
-    while((read(STDIN_FILENO, buffer, BUFF_SIZE)) > 0)
-    {
-        if(orders == NULL)
-            orders = ft_strdup(buffer);
-        else
-            orders = ft_strjoin(orders,buffer);
-        ft_memset(buffer, 0, BUFF_SIZE);
-    }
-    return orders;
+	orders = NULL;
+	while ((read(STDIN_FILENO, buffer, BUFF_SIZE)) > 0)
+	{
+		if (orders == NULL)
+			orders = ft_strdup(buffer);
+		else
+			orders = ft_strjoin(orders, buffer);
+		ft_memset(buffer, 0, BUFF_SIZE);
+	}
+	return (orders);
 }
 
-void    pick_command(struct s_stack **A,struct s_stack **B,char *command)
+void	pick_command(struct s_stack **a, struct s_stack **b, char *command)
 {
-    if(ft_strcmp(command,"pa") == 0)
-        PA(B,A);
-    else if(ft_strcmp(command,"pb") == 0)
-        PB(A,B);
-    else if(ft_strcmp(command,"sa") == 0)
-        SA(A);
-    else if(ft_strcmp(command,"sb") == 0)
-        SB(A,B);
-    else if(ft_strcmp(command,"ss") == 0)
-        SS(A,B);
-    else if(ft_strcmp(command,"ra") == 0)
-        RA(A);
-    else if(ft_strcmp(command,"rb") == 0)
-        RB(A,B);
-    else if(ft_strcmp(command,"rr") == 0)
-        RR(A,B);
-    else if(ft_strcmp(command,"rra") == 0)
-        RRA(A);
-    else if(ft_strcmp(command,"rrb") == 0)
-        RRB(A,B);
-    else if(ft_strcmp(command,"rrr") == 0)
-        RRR(A,B);
-    else
-        terminate_program();
-}
-void    run_commands(struct s_stack **A,struct s_stack **B,char *orders)
-{
-    int count;
-    int i;
-    char *command;
-
-    command = NULL;
-    count = 0;
-    i = 0;
-    while(orders[i])
-    {
-        check_formatting(orders[i-1],orders[i],orders[1+1]);
-        if(orders[i] == '\n' || orders[i] == '\0')
-        {
-            command = ft_strnew(sizeof(char)*count);
-            ft_memcpy(command,(orders + (i) - count),count);
-            count = -1;
-            pick_command(A,B,command);
-            free(command);
-        }
-        count++;
-        i++;
-    }
+	if (ft_strcmp(command, "pa") == 0)
+		pa(b, a);
+	else if (ft_strcmp(command, "pb") == 0)
+		pb(a, b);
+	else if (ft_strcmp(command, "sa") == 0)
+		sa(a);
+	else if (ft_strcmp(command, "sb") == 0)
+		sb(a, b);
+	else if (ft_strcmp(command, "ss") == 0)
+		ss(a, b);
+	else if (ft_strcmp(command, "ra") == 0)
+		ra(a);
+	else if (ft_strcmp(command, "rb") == 0)
+		rb(a, b);
+	else if (ft_strcmp(command, "rr") == 0)
+		rr(a, b);
+	else if (ft_strcmp(command, "rra") == 0)
+		rra(a);
+	else if (ft_strcmp(command, "rrb") == 0)
+		rrb(a, b);
+	else if (ft_strcmp(command, "rrr") == 0)
+		rrr(a, b);
+	else
+		terminate_program();
 }
 
-void    checker(struct s_stack *A,struct s_stack *B)
+void	run_commands(struct s_stack **a, struct s_stack **b, char *orders)
 {
-    char *orders;
+	int	count;
+	int i;
+	char*command;
 
-    orders = setOrders();
-    run_commands(&A,&B,orders);
-    //print_set(&A,&B);
-    if(isSorted(&A))
-        ft_printf("OK\n");
-    else
-        ft_printf("KO\n");
+	command = NULL;
+	count = 0;
+	i = 0;
+	while (orders[i])
+	{
+		check_formatting(orders[i - 1], orders[i], orders[1 + 1]);
+		if (orders[i] == '\n' || orders[i] == '\0')
+		{
+			command = ft_strnew(sizeof(char) * count);
+			ft_memcpy(command, (orders + (i) - count), count);
+			count = -1;
+			pick_command(a, b, command);
+			free(command);
+		}
+		count++;
+		i++;
+	}
+	free(orders);
 }
 
-int     main(int ac,char **av)
+void	checker(struct s_stack *a, struct s_stack *b)
 {
-    int length;
-    int *num_list;
-    struct s_stack *A;
-    struct s_stack *B;
-    
-    if(ac < 2)
-    {
-        ft_printf("OK\n");
-        return 1;
-    }
-    length = ac-1;
-    A = initStack();
-    B = initStack();
-    num_list = initArray(av, length);
-    check_doubles(num_list,length);
-    set_datum(&A, num_list, length);
-    checker(A,B);
+	char *orders;
+	if (is_sorted(&a))
+		return ;
+	orders = set_orders();
+	run_commands(&a, &b, orders);
+	if (is_sorted(&a))
+		ft_printf("OK\n");
+	else
+		ft_printf("KO\n");
+}
 
-    return 1;
+int		main(int ac, char **av)
+{
+	int				length;
+	int				*num_list;
+	struct s_stack	*a;
+	struct s_stack	*b;
+
+	if (ac < 2)
+		return (1);
+	length = ac - 1;
+	a = init_stack();
+	b = init_stack();
+	num_list = init_array(av, length);
+	check_doubles(num_list, length);
+	set_datum(&a, num_list, length);
+	free_num_list(num_list);
+	checker(a, b);
+	free_stack_struct(a);
+	free_stack_struct(b);
+	system("leaks checker");
+	return (1);
 }

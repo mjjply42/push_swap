@@ -35,10 +35,13 @@ P_SRC_C = init.c \
 		both_operations.c \
 		print.c \
 		standard.c \
-		starters.c \
 		extra.c \
-		stack.c \
 		error.c \
+		spot.c \
+		final.c \
+		side.c \
+		stack.c \
+		free_data.c \
 
 C_SRC_C = checker.c \
 
