@@ -26,28 +26,36 @@ struct s_node	*find_spot(struct s_stack **b, int incoming)
 		free(arr);
 		return (tmp);
 	}
-	while (i < (*b)->capacity + 1)
-	{
-		if (incoming == arr[0])
-		{
-			free(arr);
-			return (find_node(b, arr[i + 1]));
-		}
-		if (arr[i] == incoming)
-		{
-			if (i == (*b)->capacity)
-			{
-				free(arr);
-				return (find_node(b, arr[i - 1]));
-			}
-			tmp = find_node(b, arr[i + 1]);
-			{
-				free(arr);
-				return (tmp);
-			}
-		}
-		i++;
-	}
+	//tmp = had_to(b, incoming, &arr);
+	// while (i < (*b)->capacity + 1)
+	// {
+	// 	ft_printf("test1\n");
+	// 	ft_printf("NUM: %i\n", arr[i]);
+	// 	if (incoming == arr[0])
+	// 	{
+	// 		ft_printf("test2\n");
+	// 		free(arr);
+	// 		tmp = find_node(b, arr[i + 1]);
+	// 		return (tmp);
+	// 	}
+	// 	if (arr[i] == incoming)
+	// 	{
+	// 		if (i == (*b)->capacity)
+	// 		{
+	// 			ft_printf("test3\n");
+	// 			free(arr);
+	// 			tmp = find_node(b, arr[i - 1]);
+	// 			return (tmp);
+	// 		}
+	// 		tmp = find_node(b, arr[i + 1]);
+	// 		{
+	// 			ft_printf("test4\n");
+	// 			free(arr);
+	// 			return (tmp);
+	// 		}
+	// 	}
+	// 	i++;
+	// }
 	free(arr);
 	return (tmp);
 }

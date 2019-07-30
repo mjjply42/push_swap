@@ -22,7 +22,8 @@ int		set_sort_status(struct s_stack **a)
 	while (tmp->value != ((*a)->max_a))
 		tmp = tmp->next;
 	tmp->sorted = 1;
-	while (tmp->prev->value == get_next_value(a, tmp->value) && tmp->prev != NULL)
+	while (tmp->prev->value == get_next_value(a, tmp->value)
+	&& tmp->prev != NULL)
 	{
 		tmp = tmp->prev;
 		tmp->sorted = 1;

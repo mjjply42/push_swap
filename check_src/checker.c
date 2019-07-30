@@ -29,8 +29,6 @@ char	*set_orders(void)
 			test = ft_strjoin((test == NULL ? orders : test), buffer);
 		ft_memset(buffer, 0, BUFF_SIZE);
 	}
-	//if(test != NULL)
-	//	free(orders);
 	return (test == NULL ? orders : test);
 }
 
@@ -121,6 +119,5 @@ int		main(int ac, char **av)
 	checker(a, b);
 	free_stack_struct(a);
 	free_stack_struct(b);
-	//system("leaks checker");
 	return (1);
 }

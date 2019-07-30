@@ -89,7 +89,8 @@ char	*make_char_arr(void)
 	return (arr);
 }
 
-void	check_formatting(char prev_char, char curr_char, char next_char)
+void	check_formatting(char prev_char, char curr_char,
+			char next_char)
 {
 	char	*characters;
 	char	space;

@@ -110,6 +110,5 @@ int		main(int ac, char **av)
 	print_moves(&a);
 	free_stack_struct(a);
 	free_stack_struct(b);
-	//system("leaks push_swap");
 	return (1);
 }
