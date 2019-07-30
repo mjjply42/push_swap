@@ -105,7 +105,7 @@ int		*make_arr(struct s_stack **b, int incoming)
 
 	tmp = (*b)->stack;
 	i = 0;
-	arr = malloc(sizeof(int) * (*b)->capacity + 1);
+	arr = malloc(sizeof(int) * ((*b)->capacity + 1));
 	arr[i] = incoming;
 	i++;
 	while (i < (*b)->capacity + 1)

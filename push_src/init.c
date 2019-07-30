@@ -51,7 +51,7 @@ int				*init_array(char **list, int length)
 
 	i = 1;
 	number = 0;
-	if (NULL == (num_list = malloc(sizeof(int) * length + 1)))
+	if (NULL == (num_list = malloc(sizeof(int) * (length + 1))))
 		return (NULL);
 	while (i <= length)
 	{

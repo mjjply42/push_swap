@@ -16,18 +16,22 @@
 char	*set_orders(void)
 {
 	char *orders;
+	char *test;
 	char buffer[BUFF_SIZE + 1];
 
 	orders = NULL;
+	test = NULL;
 	while ((read(STDIN_FILENO, buffer, BUFF_SIZE)) > 0)
 	{
 		if (orders == NULL)
 			orders = ft_strdup(buffer);
 		else
-			orders = ft_strjoin(orders, buffer);
+			test = ft_strjoin((test == NULL ? orders : test), buffer);
 		ft_memset(buffer, 0, BUFF_SIZE);
 	}
-	return (orders);
+	//if(test != NULL)
+	//	free(orders);
+	return (test == NULL ? orders : test);
 }
 
 void	pick_command(struct s_stack **a, struct s_stack **b, char *command)
@@ -81,16 +85,17 @@ void	run_commands(struct s_stack **a, struct s_stack **b, char *orders)
 		count++;
 		i++;
 	}
-	free(orders);
 }
 
 void	checker(struct s_stack *a, struct s_stack *b)
 {
 	char *orders;
+
 	if (is_sorted(&a))
 		return ;
 	orders = set_orders();
 	run_commands(&a, &b, orders);
+	free(orders);
 	if (is_sorted(&a))
 		ft_printf("OK\n");
 	else
@@ -116,6 +121,6 @@ int		main(int ac, char **av)
 	checker(a, b);
 	free_stack_struct(a);
 	free_stack_struct(b);
-	system("leaks checker");
+	//system("leaks checker");
 	return (1);
 }

@@ -74,13 +74,13 @@ $(C_OBJ): $(C_MAIN)
 ##Compiles Push_Swap executable and all dependencies
 $(NAME): $(LIBFT) $(P_OBJ)
 	@printf "Making $(Purple)push_swap$(End) . . . "
-	@gcc $(P_OBJ) -o $(NAME) $(LIBFTLINK)
+	@gcc -g -Og -std=gnu99 $(P_OBJ) -o $(NAME) $(LIBFTLINK)
 	@printf "$(Yellow)Done$(End)\n"
 
 ##Compiles Checker executable and all dependencies
 $(NAME1): $(C_OBJ)
 	@printf "Making $(Green)checker$(End) . . . "
-	@gcc $(C_OBJ) -o $(NAME1) $(LIBFTLINK)
+	@gcc -g -Og -std=gnu99 $(C_OBJ) -o $(NAME1) $(LIBFTLINK)
 	@printf "$(Yellow)Done$(End)\n"
 
 clean:
