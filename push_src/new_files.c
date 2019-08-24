@@ -260,6 +260,8 @@ int         find_good_grab(struct s_stack **a, int *num_arr)
         get_occurance(&occupied, buckets, a, 0);
         get_occurance(&occupied, buckets, a, 1);
     }
+    else
+        return ((*a)->stack->value);
     bucket_ = highest_occurance(occupied, SIZE((*a)->capacity));
 
     //Prints the pull side, as well as the first number from the highest bucket, on the pull side
@@ -275,19 +277,6 @@ int         find_good_grab(struct s_stack **a, int *num_arr)
         i++;
         test--;
     }
-
-   /* pb(a, b);
-    pb(a, b);
-    pb(a, b);
-    pb(a, b);
-    pb(a, b);
-    pb(a, b);
-    pb(a, b);
-    pb(a, b);
-    pb(a, b);
-    pb(a, b);
-    pb(a, b);
-    pb(a, b);*/
     return (first_occurance(bucket_, buckets, a, find_pull_side(bucket_, buckets, a, 0, 0)));
 }
 
@@ -327,29 +316,45 @@ int		find_small(struct s_stack **b)
 	return (small);
 }
 
+void        move(struct s_stack **a, struct s_stack **b, int side)
+{
+    if (side == 0)
+        rb(a, b);
+    else
+        rrb(a, b);
+}
+
 void        move_around(struct s_stack **a, struct s_stack **b, int side, int moves)
 {
     if (side == 1)
-    {ft_printf("BEFORE: \n");
-        print_stack_backwards(b);
-        ft_printf("\n");
         rrb(a, b);
-        ft_printf("AFTER:\n");
-        print_stack_backwards(b);
-        ft_printf("\n");
-    }
-    ft_printf("\n");
-        print_stack_backwards(b);
-        ft_printf("\n");
+    ft_printf("TEST1\n");
     while (moves > 0)
     {
-        if (side == 0)
-            rb(a, b);
-        else
-            rrb(a, b);
+        move(a, b, side);
         moves--;
     }
+    ft_printf("TEST2\n");
     pb(a, b);
+    (*a)->rot = 0;
+}
+
+void        push_sort(struct s_stack **a, struct s_stack **b)
+{
+    struct s_node *tmp;
+
+    tmp = (*a)->stack;
+    if ((*a)->stack->value > (*a)->stack->next->value)
+        sa(a);
+    if ((*a)->stack->value < (*b)->stack->value)
+        ra(a);
+    else
+    {
+        pa(b, a);
+        ra(a);
+    }
+    to_end(&tmp);
+    tmp->sorted = 1;
 }
 
 void        check_moves(struct s_stack **a, struct s_stack **b, int incoming, int side)
@@ -361,24 +366,38 @@ void        check_moves(struct s_stack **a, struct s_stack **b, int incoming, in
     moves = 0;
     if (side == 1)
         to_end(&tmp);
-    print_stack(b);
-    print_stack_backwards(b);
     while (tmp || moves < 5)
     {
         if (tmp->value == incoming)
             break ;
-        ft_printf("tmp->PREV: %p\n", tmp->prev);
         if (side == 0)
             tmp = tmp->next;
         else
             tmp = tmp->prev;
         moves++;
     }
-    ft_printf("MOVES: %i\n", moves);
+    ft_printf("TEST\n");
     if (moves < 5)
         move_around(a, b, side, moves);
     else
+    {
+        if ((*a)->rot == 5)
+        {
+            ft_printf("ROT: %i\n", (*a)->rot);
+            print_set(a, b);
+            ft_printf("auibfnmef\n");
+            ft_printf("SMALL: %i\n", find_small(b));
+            while ((*b)->stack->value != find_small(b))
+                move(a, b, find_side(b, find_small(b)));
+            while (!is_empty(b))
+                push_sort(a, b);
+            print_set(a, b);
+            print_moves(a);
+            exit(1);
+        }
+        (*a)->rot++;
         ra(a);
+    }
 }
 
 void        handle_move(struct s_stack **a, struct s_stack **b)
@@ -391,11 +410,20 @@ void        handle_move(struct s_stack **a, struct s_stack **b)
     else
     {
         ideal = find_spot(b, (*a)->stack->value);
-        ft_printf("IDEAL: %i\n", ideal);
         check_moves(a, b, ideal, find_side(b, ideal));
-    //Once spot is known, you want to count moves to get to nearest number. Go with
-    //lowest calculation. If moves are more than 5 for each side to get to number
-    //throw (*a)->stack to the end of the stack and grab the nearest number again
-    //via the bucket system.
     }
+}
+
+int         has_order(struct s_stack **a)
+{
+    struct s_node *tmp;
+
+    tmp = (*a)->stack;
+    while (tmp)
+    {
+        if (tmp->sorted == 1)
+            return (1);
+        tmp = tmp->next;
+    }
+    return (0);
 }

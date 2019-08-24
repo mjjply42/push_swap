@@ -51,7 +51,7 @@ void	pa(struct s_stack **b, struct s_stack **a)
 	struct s_node *node;
 
 	node = NULL;
-	if ((*a)->capacity == 0 || (*b)->capacity == 0)
+	if ((*b)->capacity == 0)
 		return ;
 	node = pop(b);
 	(*b)->capacity--;
@@ -95,6 +95,7 @@ void		rra(struct s_stack **a)
 	curr->next = NULL;
 	tmp->prev = NULL;
 	tmp->next = (*a)->stack;
+	(*a)->stack->prev = tmp;
 	(*a)->stack = tmp;
 	add_command(a, "rra");
 }

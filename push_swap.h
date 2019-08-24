@@ -38,6 +38,7 @@ struct				s_stack
 	int				max_a;
 	int				end;
 	int				side;
+	int				rot;
 	struct s_node	*tail;
 	struct s_lis	*list;
 	struct s_node	*pivot;
@@ -117,4 +118,5 @@ void        		handle_move(struct s_stack **a, struct s_stack **b);
 void        		zero_out(int *arr, int size);
 int					find_small(struct s_stack **b);
 void    			print_stack_backwards(struct s_stack **stack);
+void        		move(struct s_stack **a, struct s_stack **b, int side);
 #endif

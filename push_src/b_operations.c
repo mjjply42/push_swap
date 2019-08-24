@@ -90,6 +90,7 @@ void		rrb(struct s_stack **a, struct s_stack **b)
 	curr->next = NULL;
 	tmp->prev = NULL;
 	tmp->next = (*b)->stack;
+	(*b)->stack->prev = tmp;
 	(*b)->stack = tmp;
 	add_command(a, "rrb");
 }

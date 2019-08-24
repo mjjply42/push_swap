@@ -37,6 +37,7 @@ struct s_stack	*init_stack(void)
 	stack->max_a = 0;
 	stack->end = 0;
 	stack->side = 2;
+	stack->rot = 0;
 	stack->pivot = NULL;
 	stack->list = NULL;
 	stack->stack = NULL;

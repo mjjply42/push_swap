@@ -78,7 +78,5 @@ int		find_big(struct s_stack **b)
 void	to_end(struct s_node **tmp)
 {
 	while ((*tmp)->next)
-	{
 		*tmp = (*tmp)->next;
-	}
 }

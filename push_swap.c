@@ -106,20 +106,44 @@ int		main(int ac, char **av)
     print_array(a->capacity, num_list);
     if (a->capacity > 9)
     {
-        while (!is_empty(&a))
+        ////////////NEED to accomodate sorting after a sorted portion is in A.
+        ////////////Same approach, but slightly modified. I need to check 5
+        ////////////from the front, and up to 5 unsorted back values. If values
+        ////////////can be immediately added as a direct sort to the back sorted end,
+        ////////////add away. If there are other unsorted numbers in the way of a direct sort,
+        ////////////manuever those to B, move next piece, and move back values if needed
+        while (is_sorted(&a) == 0)
         {
+            if (has_order(a))
+                modified_sort(&a, &b, num_list);
+        ft_printf("fyguhijokpl[;\n");
+        if (a->capacity < 6 && a->capacity >= 2)
+            if (a->stack->value < a->stack->next->value)
+                sa(&a);
+        ft_printf("ifdsfdghjk;\n");
         place = find_good_grab(&a, num_list);
-        ft_printf("PLACE: %i\n", place);
         pull_side(place, &a);
         handle_move(&a, &b);
         print_stack(&a);
         print_stack(&b);
-        ft_printf("\n");
-        ft_printf("\n");
         }
-        print_moves(&a);
+        while (b->stack->value != find_small(&b))
+            move(&a, &b, find_side(&b, find_small(&b)));
+        while (b->capacity > 0)
+        {
+            //print_stack(&b);
+            ft_printf("CAP: %i\n", b->capacity);
+            //if (a->capacity > 0)
+            //    ra(&a);
+            b->capacity--;
+            //pa(&b, &a);
+        }
+        //ra(&a);
+        ft_printf("A:\n");
         print_stack(&a);
+        ft_printf("B:\n");
         print_stack(&b);
+        print_moves(&a);
     }
     //else
     //calculate
