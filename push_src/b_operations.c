@@ -75,7 +75,9 @@ void		rrb(struct s_stack **a, struct s_stack **b)
 {
 	struct s_node *tmp;
 	struct s_node *curr;
-
+	
+	if ((*b)->capacity == 0)
+		return ;
 	tmp = (*b)->stack;
 	curr = tmp;
 	if (tmp->next)
@@ -85,8 +87,8 @@ void		rrb(struct s_stack **a, struct s_stack **b)
 		curr = tmp;
 		tmp = tmp->next;
 	}
-	tmp->prev = NULL;
 	curr->next = NULL;
+	tmp->prev = NULL;
 	tmp->next = (*b)->stack;
 	(*b)->stack = tmp;
 	add_command(a, "rrb");

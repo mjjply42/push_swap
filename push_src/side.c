@@ -95,7 +95,6 @@ void	prep_b(struct s_stack **a, struct s_stack **b, int incoming)
 	(*b)->max_a = find_big(b);
 	if ((*b)->stack != NULL)
 	{
-		spot = find_spot(b, incoming);
 		side = find_side(b, spot->value);
 		if (side == 1)
 			side1(a, b, spot, incoming);

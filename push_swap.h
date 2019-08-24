@@ -13,6 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# define SIZE(x) (x % 5 != 0? (x / 5) + 1: x / 5)
 # include "libft/libft.h"
 # include "libft/printf/ft_printf.h"
 # include <unistd.h>
@@ -36,6 +37,7 @@ struct				s_stack
 	int				capacity;
 	int				max_a;
 	int				end;
+	int				side;
 	struct s_node	*tail;
 	struct s_lis	*list;
 	struct s_node	*pivot;
@@ -46,7 +48,7 @@ struct s_node		*pop(struct s_stack **st);
 struct s_stack		*init_stack();
 struct s_node		*init_node(int value);
 struct s_node		*find_node(struct s_stack **st, int val);
-struct s_node		*find_spot(struct s_stack **b, int incoming);
+int					find_spot(struct s_stack **b, int incoming);
 void				to_spot3(struct s_stack **a, struct s_stack **b,
 						struct s_node **tmp, int tag);
 void				to_spot2(struct s_stack **a, struct s_stack **b,
@@ -81,6 +83,7 @@ void				swap(int *a, int *b);
 void				print_stack(struct s_stack **stack);
 void				print_set(struct s_stack **a, struct s_stack **b);
 void				print_moves(struct s_stack **a);
+void    			print_array(int size, int *arr);
 void				init_list(struct s_lis **list, char *str);
 void				add_command(struct s_stack **a, char *command);
 void				push_swap(struct s_stack **a, struct s_stack **b);
@@ -107,4 +110,11 @@ int					is_sorted(struct s_stack **a);
 int					check_next(int *num_arr, struct s_stack **a);
 int					is_empty(struct s_stack **stack);
 void				set_count_array(struct s_stack **a, int *num_arr);
+int        			**set_buckets(int *num_arr, int size);
+int					find_good_grab(struct s_stack **a, int *num_arr);
+void        		pull_side(int num, struct s_stack **a);
+void        		handle_move(struct s_stack **a, struct s_stack **b);
+void        		zero_out(int *arr, int size);
+int					find_small(struct s_stack **b);
+void    			print_stack_backwards(struct s_stack **stack);
 #endif

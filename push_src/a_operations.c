@@ -77,11 +77,12 @@ void	ra(struct s_stack **a)
 	add_command(a, "ra");
 }
 
-void	rra(struct s_stack **a)
+void		rra(struct s_stack **a)
 {
 	struct s_node *tmp;
 	struct s_node *curr;
-
+	if ((*a)->capacity == 0)
+		return ;
 	tmp = (*a)->stack;
 	curr = tmp;
 	if (tmp->next)
@@ -91,8 +92,8 @@ void	rra(struct s_stack **a)
 		curr = tmp;
 		tmp = tmp->next;
 	}
-	tmp->prev = NULL;
 	curr->next = NULL;
+	tmp->prev = NULL;
 	tmp->next = (*a)->stack;
 	(*a)->stack = tmp;
 	add_command(a, "rra");

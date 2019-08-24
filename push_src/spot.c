@@ -12,52 +12,40 @@
 
 #include "../push_swap.h"
 
-struct s_node	*find_spot(struct s_stack **b, int incoming)
+int				find_spot(struct s_stack **b, int incoming)
 {
 	struct s_node	*tmp;
 	int				*arr;
 	int				i;
+	int				spot;
 
 	i = 0;
 	tmp = (*b)->stack;
-	arr = make_arr(b, incoming);
-	if (tmp->next == NULL)
+	arr = malloc(sizeof(int) * (*b)->capacity);
+	zero_out(arr, (*b)->capacity);
+	while (tmp)
 	{
-		free(arr);
-		return (tmp);
+		arr[i] = tmp->value;
+		tmp = tmp->next;
+		i++;
 	}
-	//tmp = had_to(b, incoming, &arr);
-	// while (i < (*b)->capacity + 1)
-	// {
-	// 	ft_printf("test1\n");
-	// 	ft_printf("NUM: %i\n", arr[i]);
-	// 	if (incoming == arr[0])
-	// 	{
-	// 		ft_printf("test2\n");
-	// 		free(arr);
-	// 		tmp = find_node(b, arr[i + 1]);
-	// 		return (tmp);
-	// 	}
-	// 	if (arr[i] == incoming)
-	// 	{
-	// 		if (i == (*b)->capacity)
-	// 		{
-	// 			ft_printf("test3\n");
-	// 			free(arr);
-	// 			tmp = find_node(b, arr[i - 1]);
-	// 			return (tmp);
-	// 		}
-	// 		tmp = find_node(b, arr[i + 1]);
-	// 		{
-	// 			ft_printf("test4\n");
-	// 			free(arr);
-	// 			return (tmp);
-	// 		}
-	// 	}
-	// 	i++;
-	// }
-	free(arr);
-	return (tmp);
+	print_array((*b)->capacity, arr);
+	quicksort(arr, 0, (*b)->capacity - 1);
+	print_array((*b)->capacity, arr);
+	i = 0;
+	spot = arr[0];
+	ft_printf("BIGGG: %i\n", find_big(b));
+	if (find_big(b) < incoming)
+	{
+		ft_printf("SHIT\n");
+		return (find_small(b));
+	}
+	while (incoming > spot)
+	{
+		spot = arr[i];
+		i++;
+	}
+	return (spot);
 }
 
 void			to_spot3(struct s_stack **a, struct s_stack **b,

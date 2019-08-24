@@ -31,6 +31,20 @@ void	print_stack(struct s_stack **stack)
 	ft_printf("\n");
 }
 
+void    print_stack_backwards(struct s_stack **stack)
+{
+    struct s_node *tmp;
+
+    tmp = (*stack)->stack;
+    to_end(&tmp);
+    while (tmp)
+    {
+        ft_printf("%i    ", tmp->value);
+		tmp = tmp->prev;
+	}
+	ft_printf("\n");
+}
+
 void	print_set(struct s_stack **a, struct s_stack **b)
 {
 	ft_printf("A|   ");
@@ -55,4 +69,18 @@ void	print_moves(struct s_stack **a)
 		ft_printf("%s\n", tmp->command);
 		tmp = tmp->next;
 	}
+    ft_printf("COUNT: %i\n", count);
+}
+
+void    print_array(int size, int *arr)
+{
+    int i;
+
+    i = 0;
+    while (i != size)
+    {
+        ft_printf("%i ",arr[i]);
+        i++;
+    }
+    ft_printf("\n");
 }

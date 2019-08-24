@@ -42,6 +42,7 @@ P_SRC_C = init.c \
 		side.c \
 		stack.c \
 		free_data.c \
+		new_files.c \
 
 C_SRC_C = checker.c \
 

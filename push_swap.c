@@ -93,6 +93,7 @@ int		main(int ac, char **av)
 	int				*num_list;
 	struct s_stack	*a;
 	struct s_stack	*b;
+    int             place;
 
 	length = ac - 1;
 	check_no_let_error(ac, av);
@@ -101,7 +102,29 @@ int		main(int ac, char **av)
 	num_list = init_array(av, length);
 	check_doubles(num_list, length);
 	set_datum(&a, num_list, length);
-	free_num_list(num_list);
+    quicksort(num_list, 0, (a->capacity - 1));
+    print_array(a->capacity, num_list);
+    if (a->capacity > 9)
+    {
+        while (!is_empty(&a))
+        {
+        place = find_good_grab(&a, num_list);
+        ft_printf("PLACE: %i\n", place);
+        pull_side(place, &a);
+        handle_move(&a, &b);
+        print_stack(&a);
+        print_stack(&b);
+        ft_printf("\n");
+        ft_printf("\n");
+        }
+        print_moves(&a);
+        print_stack(&a);
+        print_stack(&b);
+    }
+    //else
+    //calculate
+
+	/*free_num_list(num_list);
 	if (is_sorted(&a) == 1)
 		return (1);
 	push_swap(&a, &b);
@@ -109,6 +132,6 @@ int		main(int ac, char **av)
 		rra(&a);
 	print_moves(&a);
 	free_stack_struct(a);
-	free_stack_struct(b);
+	free_stack_struct(b);*/
 	return (1);
 }
